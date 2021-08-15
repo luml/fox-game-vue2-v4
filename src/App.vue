@@ -1,6 +1,7 @@
 <template>
   <!-- <p>FOX GAME v2.0 (vue2)</p> -->
   <div class="container">
+    <button @click="count.value++">{{ count.value }}</button>
     <div class="inner">
       <div class="game day"></div>
       <div class="fox hidden"></div>
@@ -21,6 +22,7 @@
         <div class="icon weather-icon"></div>
       </div>
     </div>
+    <button @click="decreamentCount">{{ count.value }}</button>
   </div>
 </template>late>
 
@@ -28,17 +30,24 @@
 import gameState, { handleUserAction } from "./gameState.js";
 import { TICK_RATE } from "./constants.js";
 import initButtons from "./buttons.js";
+
+import { ref } from '@vue/composition-api'
 export default {
   name: "App",
   data() {
     return {
-      nextTimeToTick: Date
+      nextTimeToTick: Date,
+      count: ref(10),
+      decreamentCount: () => {
+        this.count.value--
+      }
     };
   },
   created() {
     this.nextTimeToTick = Date.now();
   },
   mounted() {
+
     this.init();
   },
   methods: {
